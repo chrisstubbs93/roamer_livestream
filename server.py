@@ -18,8 +18,8 @@ from subprocess import Popen, PIPE
 
 ###############################
 # CONFIGURATION
-SECRET = 'REPLACE_WITH_SECRET'
-HEROADDR = 'REPLACE_WITH_URL'+SECRET
+SECRET = '3a421f99-9976-4207-b539-defc0957745d'
+HEROADDR = 'https://hidden-earth-65240.herokuapp.com/'+SECRET
 ERROR1 = "[Errno 104] Connection reset by peer"
 ERROR2 = "Remote end closed connection without response"
 ###############################
