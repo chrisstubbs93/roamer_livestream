@@ -2,8 +2,8 @@
 
 #### 1. Update /etc/crontab to run the start.sh script on reboot ####
 echo "setting up crontab reboot"
-chmod 755 picam_livestream/start.sh
-echo "@reboot pi sudo bash /home/pi/picam_livestream/start.sh" | sudo tee --append /etc/crontab
+chmod 755 roamer_livestream/start.sh
+echo "@reboot pi sudo bash /home/pi/roamer_livestream/start.sh" | sudo tee --append /etc/crontab
 
 #### 2. Create and Setup Heroku App ####
 
@@ -12,7 +12,7 @@ echo "download heroku cli"
 curl https://cli-assets.heroku.com/install.sh | sh
 
 echo "change to heroku directory"
-cd picam_livestream/heroku
+cd roamer_livestream/heroku
 pwd
 
 # Deploying code to heroku is done via git. So setup git credentials and then commit the code in the /heroku directory:

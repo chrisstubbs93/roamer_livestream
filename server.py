@@ -27,7 +27,7 @@ ERROR2 = "Remote end closed connection without response"
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-handler = RotatingFileHandler('/home/pi/picam_livestream/server.log', maxBytes=1000000, backupCount=3)
+handler = RotatingFileHandler('/home/pi/roamer_livestream/server.log', maxBytes=1000000, backupCount=3)
 handler.setLevel(logging.DEBUG)
 formatter = logging.Formatter("[%(asctime)s] {%(lineno)d} %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
