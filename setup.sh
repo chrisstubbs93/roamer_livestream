@@ -3,7 +3,6 @@
 #### 1. Update /etc/crontab to run the start.sh script on reboot ####
 echo "setting up crontab reboot"
 chmod 755 roamer_livestream/start.sh
-echo "@reboot pi sudo bash /home/pi/roamer_livestream/start.sh" | sudo tee --append /etc/crontab
 
 #### 2. Create and Setup Heroku App ####
 
