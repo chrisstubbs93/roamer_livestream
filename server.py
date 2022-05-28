@@ -15,7 +15,7 @@ from logging.handlers import RotatingFileHandler
 from urllib3 import exceptions
 from subprocess import Popen, PIPE
 
-from cStringIO import StringIO
+from io import StringIO
 from PIL import Image
 
 ###############################
