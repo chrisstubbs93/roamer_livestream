@@ -15,6 +15,7 @@ from logging.handlers import RotatingFileHandler
 from urllib3 import exceptions
 from subprocess import Popen, PIPE
 
+
 ###############################
 # CONFIGURATION
 SECRET = '3a421f99-9976-4207-b539-defc0957745d'
@@ -46,8 +47,8 @@ if __name__ == '__main__':
     attempt = 0
     while True:
         try:
-            logger.info("Try attempt #{}".format(attempt))           
-            res = requests.post(url, data=output.stdout, stream=True)       
+            logger.info("Try attempt #{}".format(attempt))
+            res = requests.post(url, data=output.stdout, stream=True)
         except requests.exceptions.ConnectionError as err:
             if (str(err).strip() == ERROR1 or str(err).strip() == ERROR2):
                 logger.error("ERROR. ConnectionError (passing): {}".format(err))
