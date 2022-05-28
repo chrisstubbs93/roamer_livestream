@@ -15,6 +15,8 @@ from logging.handlers import RotatingFileHandler
 from urllib3 import exceptions
 from subprocess import Popen, PIPE
 
+from cStringIO import StringIO
+from PIL import Image
 
 ###############################
 # CONFIGURATION
@@ -48,7 +50,11 @@ if __name__ == '__main__':
     while True:
         try:
             logger.info("Try attempt #{}".format(attempt))
-            res = requests.post(url, data=output.stdout, stream=True)
+            raw = check_output(output.stdout)
+            buff = StringIO(raw)
+            im = Image.open(buff)
+            im.show()
+            res = requests.post(url, data=output.stdout, stream=True)       
         except requests.exceptions.ConnectionError as err:
             if (str(err).strip() == ERROR1 or str(err).strip() == ERROR2):
                 logger.error("ERROR. ConnectionError (passing): {}".format(err))
