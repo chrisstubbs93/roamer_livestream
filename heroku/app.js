@@ -34,13 +34,9 @@ app.set('view engine', 'ejs');
 // Auth function used for client access
 var auth = function(req, res, next) {
 	console.log(req.session);
-	if (!req.session.loggedin) {
-		// Instead redirect to login page
-		res.redirect('/login');
-	} else {
-		req.session.nowInMinutes = Math.floor(Date.now() / 60e3)
-		next();
-	}
+	req.session.loggedin = true;
+	req.session.nowInMinutes = Math.floor(Date.now() / 60e3)
+	next();	
 };
 
 // verify function used for WSS
@@ -62,48 +58,48 @@ app.get('/', auth, function (req, res) {
 	res.render('index', { secret: STREAM_SECRET });
 })
 
-app.get('/login', function (req, res) {
-	// login form
-	console.log(req.query.error);
-	if (req.query.error) { 
-		var err = true;
-	} else {
-		var err = false;
-	}
-	res.render('login', { error: err });
-})
+// app.get('/login', function (req, res) {
+// 	// login form
+// 	console.log(req.query.error);
+// 	if (req.query.error) { 
+// 		var err = true;
+// 	} else {
+// 		var err = false;
+// 	}
+// 	res.render('login', { error: err });
+// })
 
-app.get('/logout', function (req, res) {
-	if (req.session.loggedin) {
-		req.session.loggedin = false;
-	}
-	res.redirect('/');
-});
+// app.get('/logout', function (req, res) {
+// 	if (req.session.loggedin) {
+// 		req.session.loggedin = false;
+// 	}
+// 	res.redirect('/');
+// });
 
-app.post('/login', function (req, res) {
-	// use login data to verify and login
-	console.log('post to login');
-	var user = req.body.username.toLowerCase();
-	var hash = process.env[user];
-	if (hash) {
-		bcrypt.compare(req.body.password, hash, function(e, r) {
-			if (r) {
-				console.log("SUCCESSFUL LOGIN. password matches");
-				req.session.loggedin = true;
-				// TODO: set cookie experiation date
-				// redirect to home
-				res.redirect('/');
-			} else {
-				console.log("INCORRECT PASSWORD. password does not match");
-				res.redirect('/login?error=true');
-			}
-		});
-	} else {
-		// return error
-		console.log('INCORRECT USERNAME. username file not found');
-		return res.redirect('/login?error=true');
-	}
-});
+// app.post('/login', function (req, res) {
+// 	// use login data to verify and login
+// 	console.log('post to login');
+// 	var user = req.body.username.toLowerCase();
+// 	var hash = process.env[user];
+// 	if (hash) {
+// 		bcrypt.compare(req.body.password, hash, function(e, r) {
+// 			if (r) {
+// 				console.log("SUCCESSFUL LOGIN. password matches");
+// 				req.session.loggedin = true;
+// 				// TODO: set cookie experiation date
+// 				// redirect to home
+// 				res.redirect('/');
+// 			} else {
+// 				console.log("INCORRECT PASSWORD. password does not match");
+// 				res.redirect('/login?error=true');
+// 			}
+// 		});
+// 	} else {
+// 		// return error
+// 		console.log('INCORRECT USERNAME. username file not found');
+// 		return res.redirect('/login?error=true');
+// 	}
+// });
 
 app.post('/'+STREAM_SECRET, function (req, res) {
 	console.log("Posting stream. Connected: " + 
