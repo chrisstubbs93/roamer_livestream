@@ -14,7 +14,6 @@ import logging
 from logging.handlers import RotatingFileHandler
 from urllib3 import exceptions
 from subprocess import Popen, PIPE
-from subprocess_tee import run
 
 
 ###############################
@@ -39,8 +38,8 @@ if __name__ == '__main__':
 
     logger.info("Popen ffmpeg")
     url = HEROADDR
-    output = run(
-        "ffmpeg -loglevel fatal -f v4l2 -video_size 320x240 -r 25 -i /dev/video0 -f mpegts -vcodec mpeg1video -s 320x240 -b:v 1000k -bf 0 -",
+    output = Popen(
+        "ffmpeg -loglevel fatal -f v4l2 -video_size 320x240 -r 25 -i /dev/video0 -f mpegts -vcodec mpeg1video -s 320x240 -b:v 1000k -bf 0 - | tee ffplay -",
         # Use below if on a Pi Zero W -> need the smaller size
         # "ffmpeg -f v4l2 -video_size 352x288 -i /dev/video1 -f mpegts -vf 'vflip, hflip' -vcodec mpeg1video -s 352x288 -bf 0 -",
         stdout=PIPE, stderr=sys.stdout, shell=True)
