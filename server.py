@@ -18,8 +18,8 @@ import os
 
 ###############################
 # CONFIGURATION
-SECRET = '3a421f99-9976-4207-b539-defc0957745d'
-HEROADDR = 'https://hidden-earth-65240.herokuapp.com/'+SECRET
+SECRET = '55a64361-e653-425d-8c7e-29928cc7580d'
+HEROADDR = 'https://agile-retreat-75462.herokuapp.com/'+SECRET
 ERROR1 = "[Errno 104] Connection reset by peer"
 ERROR2 = "Remote end closed connection without response"
 ###############################
@@ -40,7 +40,7 @@ if __name__ == '__main__':
     url = HEROADDR
     os.putenv("DISPLAY", ":0")
     output = Popen(
-        "export DISPLAY=:0; ffmpeg -loglevel fatal -f v4l2 -video_size 320x240 -r 25 -i /dev/video0 -f mpegts -vcodec mpeg1video -s 320x240 -b:v 1000k -bf 0 - | tee >(ffplay -fs -)",
+        "export DISPLAY=:0; ffmpeg -loglevel fatal -f v4l2 -video_size 320x240 -r 15 -i /dev/video0 -f mpegts -vcodec mpeg1video -s 320x240 -b:v 1000k -bf 0 - | tee >(ffplay -fs -)",
         # Use below if on a Pi Zero W -> need the smaller size
         # "ffmpeg -f v4l2 -video_size 352x288 -i /dev/video1 -f mpegts -vf 'vflip, hflip' -vcodec mpeg1video -s 352x288 -bf 0 -",
         stdout=PIPE, stderr=sys.stdout, shell=True, executable='/bin/bash')
